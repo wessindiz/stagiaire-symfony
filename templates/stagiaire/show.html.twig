@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Stagiaire!
+{% endblock %}
+
+{% block body %}
+
+	<div class="example-wrapper d-flex justify-content-around ">
+			<div class="card" style="width: 18rem;">
+				<img src=" {{ asset('photos/' ~ stagiaires.photo)}}" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">{{stagiaires.prenom}} {{stagiaires.nom}}</h5>
+					<p class="card-text"><input type="text" placeholder="{{ stagiaires.description }}"</p>
+				</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">Adresse: {{ stagiaires.adresse }}</li>
+					<li class="list-group-item">N°:{{ stagiaires.telephone }}</li>
+					<li class="list-group-item">Diplôme: {{ stagiaires.diplome }}</li>
+					<li class="list-group-item">Contrat: {{ stagiaires.contrat }}</li>
+				</ul>
+				<div class="card-body">
+                   <button type="submit"><a href={{ path ("stagiaire") }}>Retour</a></button>
+					<a href="#" class="card-link">Supprimer</a>
+				</div>
+			</div>
+
+	</div>
+{% endblock %}
