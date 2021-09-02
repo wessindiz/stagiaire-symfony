@@ -68,16 +68,16 @@ class StagiaireController extends AbstractController
      * @Route("/stagiaire/edit/{id}", name="edit")
      */
 
-    
+
     public function editstg($id, Request $request)
     {
 
         $em = $this->getDoctrine()->getManager();
         $stagiaire = $em->getRepository(Stagiaire::class)->find($id);
-        $formedit=$this->createForm(StagiaireType::class, $stagiaire);
-        $oldPhoto=$stagiaire->getPhoto();
+        $formedit = $this->createForm(StagiaireType::class, $stagiaire);
+        $oldPhoto = $stagiaire->getPhoto();
 
-        if(!$stagiaire){
+        if (!$stagiaire) {
             throw $this->createNotFoundException(
                 "Aucun stagiaire trouvé avec cet id!"
             );
@@ -85,40 +85,35 @@ class StagiaireController extends AbstractController
 
         //dd($oldPhoto);
         $formedit->handleRequest($request);
-        if($formedit->isSubmitted() && $formedit->isValid()) {
-            $fileDelete= new FileSystem();
-            $file=$formedit->get('photo')->getData();
+        if ($formedit->isSubmitted() && $formedit->isValid()) {
+            $fileDelete = new FileSystem();
+            $file = $formedit->get('photo')->getData();
 
-            if($file !=null){
-                $fileName= time(). "." .$file->guessExtension();
+            if ($file != null) {
+                $fileName = time() . "." . $file->guessExtension();
 
                 $file->move(
-                    $this->getParameter('images_directory'), 
+                    $this->getParameter('images_directory'),
                     $fileName
                 );
 
-                if(file_exists('photos/'. $oldPhoto)){
-                    $fileDelete->remove('photos/'.$oldPhoto);
+                if (file_exists('photos/' . $oldPhoto)) {
+                    $fileDelete->remove('photos/' . $oldPhoto);
                 }
-                 
+
 
                 $stagiaire->setPhoto($fileName);
+            } else {
+                $stagiaire->setPhoto($oldPhoto);
+            }
 
+            $em->flush();
 
-            }else{
-            $stagiaire->setPhoto($oldPhoto); 
-    
+            return $this->redirectToRoute('stagiaire');
         }
 
-        $em->flush();
-        
-        return $this->redirectToRoute('stagiaire');
+        return $this->render('stagiaire/edit.html.twig', ["formedit" => $formedit->createView(), "stagiaire" => $stagiaire]);
     }
-
-    return $this->render('stagiaire/edit.html.twig', ["formedit"=>$formedit->createView(),"stagiaire"=>$stagiaire]);
-
-}
-
 
 
 
@@ -146,19 +141,20 @@ class StagiaireController extends AbstractController
     /**
      * @Route("/stagiaire/add", name="add_stg")
      */
-    public function newStg(Request $request){
+    public function newStg(Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
         $stg = new Stagiaire();
         $form_add = $this->createForm(StagiaireType::class, $stg);
         $form_add->handleRequest($request);
 
-        if($form_add->isSubmitted() && $form_add->isValid()){
+        if ($form_add->isSubmitted() && $form_add->isValid()) {
 
-            $imageDestination=$this->getParameter('images_directory');
-            $file= $form_add->get('photo')->getData();
-            $fileName="";
-            if($file){
-                $fileName= time(). '.' .$file->guessExtension();
+            $imageDestination = $this->getParameter('images_directory');
+            $file = $form_add->get('photo')->getData();
+            $fileName = "";
+            if ($file) {
+                $fileName = time() . '.' . $file->guessExtension();
                 $file->move(
                     $imageDestination,
                     $fileName
@@ -172,19 +168,15 @@ class StagiaireController extends AbstractController
         }
 
         return $this->render("stagiaire/add.html.twig", [
-            "form"=>$form_add->createView(),
+            "form" => $form_add->createView(),
         ]);
-        
     }
 
     /**
      * @Route("/stagiaire/login", name="login")
      */
-    public function login(){
+    public function login()
+    {
         return $this->render('user/login.html.twig');
     }
-
 }
-
-
-
