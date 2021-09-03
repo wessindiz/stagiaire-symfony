@@ -5,6 +5,8 @@ namespace App\Controller;
 use \DateTime;
 use App\Entity\Stagiaire;
 use App\Form\StagiaireType;
+use App\Repository\StagiaireRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,13 +18,25 @@ class StagiaireController extends AbstractController
     /**
      * @Route("/stagiaire", name="stagiaire")
      */
-    public function index(): Response
+    public function index(Request $request, StagiaireRepository $repo1, PaginatorInterface $paginator): Response
     {
         $repo = $this->getDoctrine()->getRepository(Stagiaire::class);
-        $stagiaires = $repo->findAll();
+        $infoSearch = $request->query->get('searchbar');
+
+        $stagiaires = $repo1->findAllStagiaireByName($infoSearch);
+
+        $card = $paginator->paginate(
+            $stagiaires, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1),2 // Nombre de résultats par page
+        );
+        
+        
+        //Affiche les stagiaire correspondants à la recherche dans la Searchbar
         return $this->render('stagiaire/index.html.twig', [
-            'stagiaires' => $stagiaires,
+            'stagiaires' => $card,
         ]);
+
+
     }
 
 
@@ -179,4 +193,6 @@ class StagiaireController extends AbstractController
     {
         return $this->render('user/login.html.twig');
     }
+
+    
 }

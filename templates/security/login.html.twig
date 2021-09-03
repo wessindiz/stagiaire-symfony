@@ -11,32 +11,54 @@
 
 		{% if app.user %}
 			<div class="mb-3">
-				You are logged in as
+				Vous êtes déja connecté en tant que
 				{{ app.user.username }},
-				<a href="{{ path('app_logout') }}">Logout</a>
+				<a href="{{ path('app_logout') }}">Se déconnecter</a>
 			</div>
 		{% endif %}
+		<section class="vh-100 gradient-custom">
+			<div class="container h-100">
+				<div class="row d-flex justify-content-center align-items-center h-100">
+					<div class="col-12 col-md-8 col-lg-6 col-xl-5">
+						<div class="card bg-dark text-white" style="border-radius: 1rem;">
+							<div class="card-body p-5 text-center">
 
-		<h1 class="h3 mb-3 font-weight-normal">Se connecter</h1>
-		<label for="inputEmail">Email</label>
-		<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-		<label for="inputPassword">Mot de passe</label>
-		<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+								<div class="mb-md-5 mt-md-4 pb-5">
 
-		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        
-		<div class="checkbox mb-3">
-			<input type="checkbox" id="remember_me" name="_remember_me" checked/>
-			<label for="remember_me">Se rappeler de moi</label>
-		</div>
+									<h3 class="fw-bold mb-2 text-uppercase">Se connecter</h3>
+									<p class="text-white-50 mb-5">Veuillez vous identifier!</p>
 
 
-		<button class="btn btn-lg btn-primary" type="submit">
-			Se connecter
-		</button>
+									<div class="form-outline form-white mb-4">
+
+										<label for="inputEmail">Email</label>
+										<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control form-control-lg" autocomplete="email" required autofocus>
+									</div>
+									
+									<div class="form-outline form-white mb-4">
+										<label for="inputPassword">Mot de passe</label>
+										<input type="password" name="password" id="inputPassword" class="form-control form-control-lg" autocomplete="current-password" required>
+									</div>
+
+									<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+									<button class="btn btn-outline-light btn-lg px-5 mb-2" type="submit">
+										Se connecter
+									</button>
+
+
+									<div>
+										<p class="mb-0 mt-3">Pas encore de compte?
+											<a href="#!" class="text-white-50 fw-bold ">S'inscrire</a>
+										</p>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 	</form>
-	<p>Pas encore de compte?
-		<a href="{{ path('user_new') }} ">
-			Inscrivez vous ici!</a>
-	</p>
 {% endblock %}

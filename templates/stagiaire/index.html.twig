@@ -19,15 +19,20 @@
 					<p class="card-text">{{ stagiaire.description }}</p>
 				</div>
 				<ul class="list-group list-group-flush">
-					<li class="list-group-item itemform">Adresse: {{ stagiaire.adresse }}</li>
-					<li class="list-group-item">N°: {{ stagiaire.telephone }}</li>
-					<li class="list-group-item">Diplôme: {{ stagiaire.diplome }}</li>
-					<li class="list-group-item">Contrat: {{ stagiaire.contrat }}</li>
+					<li class="list-group-item itemform">Adresse:
+						{{ stagiaire.adresse }}</li>
+					<li class="list-group-item">N°:
+						{{ stagiaire.telephone }}</li>
+					<li class="list-group-item">Diplôme:
+						{{ stagiaire.diplome }}</li>
+					<li class="list-group-item">Contrat:
+						{{ stagiaire.contrat }}</li>
 				</ul>
 				<div class="card-body">
 					<button type="button" class="btn btn-success">
 						<a href="{{ path('show', {id: stagiaire.id})}}" class="card-link">Voir</a>
 					</button>
+
 
 					{% if is_granted("ROLE_ADMIN") %}
 						<button type="button" class="btn btn-info">
@@ -36,11 +41,13 @@
 						<button type="button" class="btn btn-danger">
 							<a onclick="return confirm('Êtes-vous sur de vouloir supprimer ce profile ?')" href=" {{ path('delete', {id: stagiaire.id})}}" class="card-link">Supprimer</a>
 						</button>
-                        
 					{% endif %}
+
 				</div>
 			</div>
 		{% endfor %}
+				<div class="d-flex justify-content-center ">{{ knp_pagination_render(stagiaires) }}</div>
+
 	</div>
 	{% if is_granted("ROLE_ADMIN") %}
 		<div class="d-flex justify-content-end">
@@ -48,5 +55,4 @@
 				<a href="{{ path('add_stg')}}" class="text-reset text-decoration-none">Ajouter un nouveau stagiaire +</button>
 			</div>
 		{% endif %}
-
 	{% endblock %}

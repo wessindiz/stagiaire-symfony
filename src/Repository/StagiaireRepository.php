@@ -17,6 +17,7 @@ class StagiaireRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Stagiaire::class);
+
     }
 
     // /**
@@ -47,4 +48,31 @@ class StagiaireRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findAllStagiaireByName($name):array
+    {
+            $db = $this->getEntityManager()->getConnection();
+            $req = '
+                SELECT * FROM stagiaire AS s 
+                WHERE s.nom LIKE :n
+                OR s.prenom LIKE :n
+                ';
+            $result = $db->prepare($req);
+            $result->execute(['n'=>'%'.$name.'%']);
+            return $result->fetchAllAssociative();
+    }
+
+    
+
+    /*public function findAllGreaterThanPrice($name):array
+    {
+        return $this->createQueryBuilder('s')
+                    ->andWhere('s.name > :n')
+                    ->setParameter('n',$name)
+                    ->orderBy('s.name','DESC')
+                    ->getQuery()
+                    ->getResult()
+        ;
+    }*/
+
 }
