@@ -25,19 +25,22 @@ class StagiaireController extends AbstractController
 
         $stagiaires = $repo1->findAllStagiaireByName($infoSearch);
 
+
+        
+        //pagination
         $card = $paginator->paginate(
-            $stagiaires, // Requête contenant les données à paginer (ici nos articles)
-            $request->query->getInt('page', 1),2 // Nombre de résultats par page
+            $stagiaires, $request->query->getInt('page', 1), 3
         );
-        
-        
+
+
         //Affiche les stagiaire correspondants à la recherche dans la Searchbar
         return $this->render('stagiaire/index.html.twig', [
-            'stagiaires' => $card,
+            'stagiaires' => $card, 'nbstg'=>empty($stagiaires)
         ]);
 
-
     }
+
+
 
 
     /**
@@ -63,6 +66,8 @@ class StagiaireController extends AbstractController
     }
 
 
+
+
     /**
      * @Route("/stagiaire/show/{id}", name="show")
      */
@@ -77,6 +82,9 @@ class StagiaireController extends AbstractController
             'stagiaires' => $stagiaires,
         ]);
     }
+
+
+
 
     /**
      * @Route("/stagiaire/edit/{id}", name="edit")
@@ -97,7 +105,6 @@ class StagiaireController extends AbstractController
             );
         }
 
-        //dd($oldPhoto);
         $formedit->handleRequest($request);
         if ($formedit->isSubmitted() && $formedit->isValid()) {
             $fileDelete = new FileSystem();
@@ -131,6 +138,7 @@ class StagiaireController extends AbstractController
 
 
 
+
     /**
      * @Route("/stagiaire/delete/ {id}", name="delete")
      */
@@ -150,6 +158,8 @@ class StagiaireController extends AbstractController
 
         return $this->redirectToRoute("stagiaire");
     }
+
+
 
 
     /**
@@ -185,6 +195,9 @@ class StagiaireController extends AbstractController
             "form" => $form_add->createView(),
         ]);
     }
+
+
+
 
     /**
      * @Route("/stagiaire/login", name="login")

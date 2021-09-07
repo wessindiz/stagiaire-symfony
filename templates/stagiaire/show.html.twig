@@ -10,16 +10,16 @@
 				<img src=" {{ asset('photos/' ~ stagiaires.photo)}}" class="card-img-top" alt="...">
 				<div class="card-body">
 					<h5 class="card-title">{{stagiaires.prenom}} {{stagiaires.nom}}</h5>
-					<p class="card-text"><input type="text" placeholder="{{ stagiaires.description }}"</p>
+					<p class="card-text">{{ stagiaires.description }}</p>
 				</div>
 				<ul class="list-group list-group-flush">
-					<li class="list-group-item">Adresse: {{ stagiaires.adresse }}</li>
-					<li class="list-group-item">N°:{{ stagiaires.telephone }}</li>
-					<li class="list-group-item">Diplôme: {{ stagiaires.diplome }}</li>
-					<li class="list-group-item">Contrat: {{ stagiaires.contrat }}</li>
+					<li class="list-group-item"><p class="font-weight-bolde ">Adresse:</p> {{ stagiaires.adresse }}</li>
+					<li class="list-group-item"><p class="font-weight-bolde ">N°:</p> {{ stagiaires.telephone }}</li>
+					<li class="list-group-item"><p class="font-weight-bolde ">Diplôme:</p> {{ stagiaires.diplome }}</li>
+					<li class="list-group-item"><p class="font-weight-bolde ">Contrat:</p> {{ stagiaires.contrat }}</li>
 				</ul>
 				<div class="card-body">
-                   <button type="submit"><a href={{ path ("stagiaire") }}>Retour</a></button>
+                   <button type="button" class="btn btn-secondary"><a href={{ path ("stagiaire") }}>Retour</a></button>
 				</div>
 			</div>
 

@@ -23,12 +23,13 @@ button a{
     color: azure;
 }
 
-.logo{
-    width: 8em;
-}
 
 .itemenu{
     margin-right: 7em;
     font-size: 1.75em;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+a:hover{
+    color: aliceblue !important;
 }
