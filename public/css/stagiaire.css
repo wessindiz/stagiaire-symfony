@@ -33,3 +33,7 @@ button a{
 a:hover{
     color: aliceblue !important;
 }
+
+.menu .nav-item .nav-link{
+    color: rgb(25, 19, 54) !important;
+}

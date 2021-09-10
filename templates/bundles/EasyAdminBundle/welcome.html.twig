@@ -1,0 +1,31 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title 'ADMINISTRATION' %}
+
+{% block main %}
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card ext-white bg-secondary mb-3">
+                <div class="card-header text-center text-dark">Stagiaires</div>
+                <div class="card-body">
+                    <h1 class="display-1 m-2 text-center text-dark">{{Stg}}</h1>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="card ext-white bg-primary mb-3">
+                <div class="card-header text-center text-white">Utilisateurs</div>
+                <div class="card-body">
+                    <h1 class="display-1 m-2 text-center text-white">{{Users}}</h1>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
